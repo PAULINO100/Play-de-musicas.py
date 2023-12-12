@@ -1,0 +1,31 @@
+import os
+import pygame
+
+# Defina o diretório da pasta de músicas
+pasta_musicas = "D:\Music\Dance 80's"
+
+# Inicialize o Pygame
+pygame.init()
+
+# Configure o mixer para reproduzir áudio
+pygame.mixer.init()
+
+# Lista de arquivos de música na pasta
+arquivos_musicas = [os.path.join(pasta_musicas, arquivo) for arquivo in os.listdir(pasta_musicas) if arquivo.endswith(".mp3")]
+
+# Verifique se há músicas na pasta
+if not arquivos_musicas:
+    print("Nenhuma música encontrada na pasta.")
+else:
+    # Reproduza todas as músicas na pasta
+    for arquivo_musica in arquivos_musicas:
+        pygame.mixer.music.load(arquivo_musica)
+        print(f"Tocando: {os.path.basename(arquivo_musica)}")
+        pygame.mixer.music.play()
+
+        # Aguarde o término da música
+        while pygame.mixer.music.get_busy():
+            pass
+
+# Encerre o Pygame
+pygame.quit()
